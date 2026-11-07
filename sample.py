@@ -720,11 +720,11 @@ def main():
     if args.frame_stride < 1:
         parser.error("--frame-stride must be at least 1")
 
-    if args.clip_padding < 0:
-        parser.error("--clip-padding cannot be negative")
+    # if args.clip_padding < 0:
+    #     parser.error("--clip-padding cannot be negative")
 
-    if args.max_gap_seconds <= 0:
-        parser.error("--max-gap-seconds must be positive")
+    # if args.max_gap_seconds <= 0:
+    #     parser.error("--max-gap-seconds must be positive")
         
     if args.command == "create-profile":
         create_profile(args)
