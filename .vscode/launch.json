@@ -18,6 +18,15 @@
             "console": "integratedTerminal"
         },
         {
+            "name": "sample-search-profile",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/sample.py",
+            "args": ["search", "--video", "video/reference.mp4", "--profile", "profiles/profile_1", 
+                        "--output", "output", "--threshold", "0.55", "--clip-padding", "3", "--max-gap-seconds", "2"],
+            "console": "integratedTerminal"
+        },
+        {
             "name": "Python Debugger: Current File",
             "type": "debugpy",
             "request": "launch",

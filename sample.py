@@ -434,19 +434,6 @@ def search_video(args):
             # we do not extract an expensive Re-ID embedding.
             for det in detections:
                 tid = det["track_id"]
-
-                # if tid not in tracks:
-                #     tracks[tid] = {
-                #         "first_seen": timestamp,
-                #         "last_seen": timestamp,
-                #         "embeddings": [],
-                #         "best_similarity": -1.0,
-                #         "best_frame": "",
-                #         "sample_count": 0,
-                #     }
-
-                # tracks[tid]["last_seen"] = timestamp
-
                 
                 if tid not in tracks:
                     tracks[tid] = {
@@ -483,7 +470,7 @@ def search_video(args):
                 item["last_frame"] = current_frame
 
 
-            if current_frame % sample_every != 0:
+            if current_frame % sample_every != 0: # check its significance
                 continue
 
             for det in detections:
@@ -500,6 +487,9 @@ def search_video(args):
                     )
                     continue
 
+                if tid == 1:
+                    pass
+                
                 item = tracks[tid]
                 item["embeddings"].append(embedding)
                 item["sample_count"] += 1
@@ -574,6 +564,7 @@ def search_video(args):
             "clips": [],
         })
 
+    results = [results[0]]
 
     results.sort(
         key=lambda row: row["similarity"],
