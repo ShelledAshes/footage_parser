@@ -6,10 +6,10 @@ import base64
 # import torch
 # import numpy as np
 
-from detector import Detector
+from .detector import Detector
 # from extractor import Extractor
-from vprofile import Profile
-from video_info import VideoInfo
+from .vprofile import Profile
+from .video_info import VideoInfo
 
 
 class VideoAnalyser:
@@ -191,7 +191,7 @@ class VideoAnalyser:
             #     image_data = base64.b64encode(image_file.read()).decode("utf-8")
             #     pdata["image_data"] = image_data
 
-            # data.append(pdata)
+            data.append(pdata)
 
         return data
 

@@ -7,8 +7,8 @@ import cv2
 import torch
 import numpy as np
 
-from extractor import Extractor
-from video_info import VideoInfo
+from .extractor import Extractor
+from .video_info import VideoInfo
 
 # import extractor
 # from sample import extract_embedding
@@ -34,6 +34,7 @@ class Profile:
 
         self.profile_save_path = None
         self.screenshot_paths = []
+        self.video_clips_paths = []
 
         # self.fps = fps
         
@@ -80,6 +81,9 @@ class Profile:
 
     def get_ss_paths(self):
         return self.screenshot_paths
+
+    def get_video_clips_paths(self):
+        return self.video_clips_paths
 
     def add_detection_data(self, det, embd_extract):
         if det:
@@ -352,6 +356,8 @@ class Profile:
     
                             writer.write(frame)
                             current_frame += 1
+
+                        self.video_clips_paths.append(str(output_path))
     
                     finally:
                         writer.release()

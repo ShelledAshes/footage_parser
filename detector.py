@@ -1,10 +1,23 @@
 
-from ultralytics import YOLO
 import json
+from pathlib import Path
+from ultralytics import YOLO
+
 
 DEVICE = "cpu"
+BASE_DIR = Path(__file__).resolve().parent
 # DETECTOR_MODEL = "yolo26n.pt"
-with open("detector_models/models.json", "r") as f:
+
+INSERVER = True
+
+models_path = "detector_models/models.json"
+if INSERVER:
+    temp_path = next(BASE_DIR.rglob("detector_models/models.json"), None)
+    path = Path(temp_path)
+    if path.exists():
+        models_path = str(path)
+
+with open(models_path, "r") as f:
     models = json.load(f)
 
 class Detector:
@@ -34,8 +47,18 @@ class Detector:
         return None
 
     def load_detector_model(self, detector_type):
+        model_path = ''
+
         if detector_type == "person":
-            return YOLO(models["person"])
+            model_path = models.get(detector_type, '')
+            # return YOLO(models["person"])
+
+        if not Path(model_path).exists():
+            temp_path = next(BASE_DIR.rglob(f"detector_models/{model_path}"), None)
+            if Path(temp_path).exists():
+                model_path = temp_path
+
+        return YOLO(model_path)
 
 
     def get_model(self):
